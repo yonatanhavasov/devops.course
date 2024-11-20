@@ -186,3 +186,30 @@ import random
         
 #         print("Entry logged successfully.")
 
+# percentage=input("what percent are you? chose what you are between this options:fat,stupid,russian")
+# class sukinsak:
+#     def __init__(self, fat, russian, stupid="default"):  
+#         self.fat = fat
+#         self.russian = russian
+#         self.stupid = stupid
+
+#     def what_percent(self):
+#         print(f"youre 100% because you {self.fat}, {self.russian}, {self.stupid}.")
+
+#     def not_100_percent(self, part="fat"):
+#         if part == "fat":
+#             print(f"youre 66% because you {self.fat}, {self.russian}.")
+#         elif part == "russian":
+#             print(f"youre 66% because you {self.fat}, {self.stupid}.")
+#         elif part == "stupid":
+#             print(f"youre 66% because you {self.stupid}, {self.russian}.")
+#         else:
+#             print("Invalid part selected.")
+
+# saki1 = sukinsak("fat", "russian", "stupid")
+# saki2 = sukinsak("fat", "russian") 
+# saki3 = sukinsak("fat", "stupid") 
+
+# saki1.what_percent()      
+# saki2.not_100_percent()  
+# saki3.not_100_percent()  
