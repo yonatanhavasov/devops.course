@@ -273,3 +273,12 @@ import random
 # print(f"You are {total_percentage + 0.01}%")
 
 
+my_dict={
+    "name":"alice",
+    "age":"25",
+    "city":"new york"
+}
+my_dict["job"] = "Engineer"
+
+for key, value in my_dict():
+    print(f"{key}: {value}")
