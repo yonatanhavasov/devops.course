@@ -213,3 +213,63 @@ import random
 # saki1.what_percent()      
 # saki2.not_100_percent()  
 # saki3.not_100_percent()  
+
+
+# x="yes"
+# y="no"
+# i=float(33.33)
+# percentage_fat=input(f"are you fat: {x}/{y} :")
+# percentage_stupid=input(f"are you stupid: {x}/{y} :")
+# percentage_ussr=input(f"are you frum ussr: {x}/{y} :")
+# if percentage_fat==x and percentage_stupid==x and percentage_ussr==x:
+#     print("you are 100%")
+# else:
+#     if (y) in percentage_fat:
+#        print("you are 0%")
+#     else: 
+#        (x) in percentage_fat
+#        print(f"you are {i}") 
+#     if (x) in percentage_stupid and percentage_fat==x:
+#        print(f"you are {i+i}")   
+#     elif (x) in percentage_stupid :
+#      print(f"you are {i}")
+#     else:
+#        print("you are 0%")          
+#     if (x) in percentage_ussr and percentage_fat==x:                   
+#        print(f"you are {i+i}") 
+#     elif (x) in percentage_ussr and percentage_stupid==x:
+#        print(f"you are {i+i}")
+#     elif (x) in percentage_ussr:
+#      print(f"you are {i}")  
+#     else:
+#        print("you are 0%")      
+
+# #calculator checks if youre 100%
+# x = "yes"
+# y = "no"
+# i = float(33.33)
+
+# # Input from the user
+# percentage_fat = input(f"Are you fat: {x}/{y} : ")
+# percentage_stupid = input(f"Are you stupid: {x}/{y} : ")
+# percentage_ussr = input(f"Are you from USSR: {x}/{y} : ")
+
+# # Initialize the total percentage variable
+# total_percentage = 0
+
+# # Check if the user is "fat"
+# if percentage_fat == x:
+#     total_percentage += i
+
+# # Check if the user is "stupid"
+# if percentage_stupid == x:
+#     total_percentage += i
+
+# # Check if the user is from the "USSR"
+# if percentage_ussr == x:
+#     total_percentage += i
+
+# # Print the final accumulated percentage
+# print(f"You are {total_percentage + 0.01}%")
+
+
