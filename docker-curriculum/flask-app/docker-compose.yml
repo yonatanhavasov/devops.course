@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  app:
+    image: yonihavasov/catnip
+    ports:
+      - "8888:5000"
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: gif_db
+      MYSQL_USER: gif_user
+      MYSQL_PASSWORD: gif_password
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
