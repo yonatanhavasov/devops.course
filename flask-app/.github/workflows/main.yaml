@@ -24,7 +24,7 @@ jobs:
        password: ${{ secrets.DOCKER_PASSWORD }}
      
     - name: Build the Docker image
-      run: docker build -t yonihavasov/flask:latest /devops.course/flask-app/
+      run: docker build -t yonihavasov/flask:latest ./devops.course/flask-app/
       
     - name: Push the Docker image
       run: docker push yonihavasov/flask:latest
