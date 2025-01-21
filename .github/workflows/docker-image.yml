@@ -50,7 +50,7 @@ jobs:
 
     - name: Start the application with Docker Compose
       run: |
-        docker-compose up -d
+        docker-compose up -d flask-app
         sleep 5 # Allow time for the application to start
 
     - name: Test the application with curl
@@ -64,4 +64,4 @@ jobs:
 
     - name: Clean up Docker Compose
       if: always()
-      run: docker-compose down
+      run: docker-compose down flask-app
