@@ -1,0 +1,3 @@
+.env
+../kubernetis.yaml/commands-secrets
+
