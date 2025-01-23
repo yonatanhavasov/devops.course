@@ -1,0 +1,9 @@
+.env
+../kubernetis.yaml/commands-secrets
+*.tfstate
+*.tfstate.backup
+*.log
+public_ip.txt
+.env
+key-name
+
