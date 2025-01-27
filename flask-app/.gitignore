@@ -2,4 +2,5 @@
 .terraform/
 terraform.tfstate
 terraform.tfstate.backup
-kubernetis-deployment.yaml/commands-secrets
+kubernetis-deployment/commands-secrets.sh
+
