@@ -1,6 +1,0 @@
-.env
-.terraform/
-terraform.tfstate
-terraform.tfstate.backup
-kubernetis-deployment.yaml/commands-secrets
-../.history
