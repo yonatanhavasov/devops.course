@@ -1,0 +1,8 @@
+.env
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+kubernetis-deployment/commands-secrets.sh
+terraform.tfvars
+variables.tf
+.history
