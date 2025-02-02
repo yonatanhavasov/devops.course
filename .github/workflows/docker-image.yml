@@ -69,4 +69,4 @@ jobs:
 
     - name: Clean up Docker Compose
       if: always()
-      run: docker-compose -f flask-app/docker-compose.yaml down
+      run: docker-compose -f flask-app/docker-compose.yml down
