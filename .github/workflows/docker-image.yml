@@ -62,6 +62,7 @@ jobs:
 
     - name: Start the application with Docker Compose
       run: |
+      working-directory: flask-app 
         docker-compose --env-file flask-app/.env -f flask-app/docker-compose.yml up -d
         sleep 5 # Allow time for the application to start
 
