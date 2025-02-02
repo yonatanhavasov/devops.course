@@ -1,4 +1,4 @@
-name: Docker Image CI
+vponame: Docker Image CI
 
 on:
   push:
@@ -54,7 +54,7 @@ jobs:
 
     - name: Start the application with Docker Compose
       run: |
-        docker-compose -f flask-app/docker-compose.yaml up -d
+        docker-compose -f devops.course/flask-app/docker-compose.yaml up -d
         echo "Waiting for the application to start..."
         sleep 15 # Increase the wait time for app startup
 
