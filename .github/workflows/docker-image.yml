@@ -25,15 +25,15 @@ jobs:
 
     - name: Create .env file
       run: |
-        echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> flask-app/.env
-        echo "MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}" >> flask-app/.env
-        echo "MYSQL_USER=${{ secrets.MYSQL_USER }}" >> flask-app/.env
-        echo "MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}" >> flask-app/.env
-        echo "PORT=${{ secrets.PORT }}" >> flask-app/.env
-        echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> flask-app/.env
-        echo "DB_NAME=${{ secrets.DB_NAME }}" >> flask-app/.env
-        echo "DB_HOST=${{ secrets.DB_HOST }}" >> flask-app/.env
-        echo "DB_USER=${{ secrets.DB_USER }}" >> flask-app/.env
+        echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> devops.course/flask-app/.env
+        echo "MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}" >> devops.course/flask-app/.env
+        echo "MYSQL_USER=${{ secrets.MYSQL_USER }}" >> devops.course/flask-app/.env
+        echo "MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}" >> devops.course/flask-app/.env
+        echo "PORT=${{ secrets.PORT }}" >> devops.course/flask-app/.env
+        echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> devops.course/flask-app/.env
+        echo "DB_NAME=${{ secrets.DB_NAME }}" >> devops.course/flask-app/.env
+        echo "DB_HOST=${{ secrets.DB_HOST }}" >> devops.course/flask-app/.env
+        echo "DB_USER=${{ secrets.DB_USER }}" >> devops.course/flask-app/.env
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
@@ -62,7 +62,7 @@ jobs:
 
     - name: Start the application with Docker Compose
       run: |
-        docker-compose --env-file flask-app/.env -f flask-app/docker-compose.yml up -d
+        docker-compose --env-file devops.course/flask-app/.env -f flask-app/docker-compose.yml up -d
         sleep 5 # Allow time for the application to start
 
     - name: Test the application with curl
