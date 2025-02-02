@@ -33,6 +33,6 @@ jobs:
         TF_VAR_db_name: ${{ secrets.DB_NAME }}
         TF_VAR_port: ${{ secrets.PORT }}
       run: |
-        cd terraform
+        cd flask-app
         terraform init
         terraform apply -auto-approve
