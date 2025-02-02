@@ -42,7 +42,11 @@ jobs:
     - name: Check out the repository
       uses: actions/checkout@v4
 
-    - name: Set up Docker Compose
+    - name: Verify File Structure
+      run: ls -R
+      # This lists all files to ensure `flask-app/docker-compose.yaml` is in the correct path.
+
+    - name: Install Docker Compose
       run: |
         curl -L "https://github.com/docker/compose/releases/download/v2.21.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
         chmod +x /usr/local/bin/docker-compose
@@ -51,7 +55,8 @@ jobs:
     - name: Start the application with Docker Compose
       run: |
         docker-compose -f flask-app/docker-compose.yaml up -d
-        sleep 5 # Allow time for the application to start
+        echo "Waiting for the application to start..."
+        sleep 15 # Increase the wait time for app startup
 
     - name: Test the application with curl
       run: |
