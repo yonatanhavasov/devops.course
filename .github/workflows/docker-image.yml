@@ -61,9 +61,9 @@ jobs:
         docker-compose version
 
     - name: Start the application with Docker Compose
-      working-directory: devops.course
+      working-directory: flask-app
       run: | 
-        docker-compose --env-file flask-app/.env -f flask-app/docker-compose.yml up -d
+        docker-compose --env-file .env -f docker-compose.yml up -d
         sleep 5 # Allow time for the application to start
 
     - name: Test the application with curl
