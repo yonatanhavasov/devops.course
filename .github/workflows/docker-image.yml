@@ -42,25 +42,30 @@ jobs:
     - name: Check out the repository
       uses: actions/checkout@v4
 
-    - name: Verify File Structure
-      run: ls -R
-      # This lists all files to ensure `flask-app/docker-compose.yaml` is in the correct path.
-
-    - name: Install Docker Compose
+    - name: Set up Docker Compose
       run: |
         curl -L "https://github.com/docker/compose/releases/download/v2.21.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
         chmod +x /usr/local/bin/docker-compose
         docker-compose version
 
     - name: Start the application with Docker Compose
+      env:
+        MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+        MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+        MYSQL_USER: ${{ secrets.MYSQL_USER }}
+        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+        PORT: ${{ secrets.PORT }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DB_NAME: ${{ secrets.DB_NAME }}
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_USER: ${{ secrets.DB_USER }}
       run: |
         docker-compose -f flask-app/docker-compose.yml up -d
-        echo "Waiting for the application to start..."
-        sleep 15 # Increase the wait time for app startup
+        sleep 5 # Allow time for the application to start
 
     - name: Test the application with curl
       run: |
-        RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5001)
+        RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:${{ secrets.PORT }})
         if [ "$RESPONSE" -ne 200 ]; then
           echo "Test failed with HTTP status $RESPONSE"
           exit 1
