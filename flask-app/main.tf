@@ -1,7 +1,14 @@
 provider "aws" {
   region = "us-east-1" # Change to your preferred region, 6, 25/1 deploy.
 }
-
+terraform {
+  backend "s3" {
+    bucket         = "docker-badger-gifs"   # Your existing S3 bucket name
+    key            = "terraform/terraform.tfstate"  # State file location inside the bucket
+    region         = "us-east-1"  # Update if your bucket is in a different region
+    encrypt        = true
+  }
+}
 resource "aws_security_group" "flask_sg" {
   name        = "flask-sg"
   description = "Security group for Flask app"
@@ -59,8 +66,8 @@ resource "aws_instance" "apache_server" {
               aws s3 cp s3://docker-badger-gifs/.env /home/ec2-user/flask-app/flask-app/.env
               cd /home/ec2-user/flask-app/flask-app
               
-              docker-compose build
-              docker-compose up -d
+              docker-compose pull
+              docker-compose up -d --no-build
               EOF
 }
 

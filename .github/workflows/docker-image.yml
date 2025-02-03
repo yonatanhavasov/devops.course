@@ -76,7 +76,3 @@ jobs:
           exit 1
         fi
         echo "Test passed with HTTP status $RESPONSE"
-
-    - name: Clean up Docker Compose
-      if: always()
-      run: docker-compose -f flask-app/docker-compose.yml down
