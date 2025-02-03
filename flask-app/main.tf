@@ -67,7 +67,7 @@ resource "aws_instance" "apache_server" {
               cd /home/ec2-user/flask-app/flask-app
               
               docker-compose pull
-              docker-compose up -d --no-build
+              docker-compose up -d 
               EOF
 }
 
