@@ -26,7 +26,7 @@ jobs:
 
     - name: Terraform Init & Apply
       run: |
-        cd terraform
+        cd flask-app/terraform-gke-k8s
         terraform init
         terraform apply -auto-approve
       env:
