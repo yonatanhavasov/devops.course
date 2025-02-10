@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+spec:
+  replicas: {{ .Values.flaskApp.replicas }}
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+      - name: flask-app
+        image: {{ .Values.flaskApp.image }}
+        ports:
+        - containerPort: {{ .Values.flaskApp.containerPort }}
+        envFrom:
+        - configMapRef:
+            name: flask-app-config
+        - secretRef:
+            name: flask-app-secrets

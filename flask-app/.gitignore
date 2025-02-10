@@ -4,3 +4,4 @@ terraform.tfstate
 terraform.tfstate.backup
 kubernetis-deployment/commands-secrets.sh
 .history/
+.terraform.lock.hcl
