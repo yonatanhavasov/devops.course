@@ -1,0 +1,16 @@
+# Exclude Terraform files
+terraform/
+*.tf
+*.tfstate
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+
+# Exclude Git files
+.git/
+.gitignore
+
+# Exclude Helm build artifacts
+*.tgz
+charts/
+tmp/
