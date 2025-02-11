@@ -34,7 +34,7 @@ jobs:
 
     - name: Get GKE Credentials
       run: |
-        gcloud container clusters get-credentials gke-cluster --region=us-central1 --project=${{ secrets.GCP_PROJECT_ID }}
+        gcloud container clusters get-credentials gke-cluster --region=us-central1 --project=${{ secrets.GCP_CREDENTIALS }}
 
     - name: Install Helm
       uses: azure/setup-helm@v3
