@@ -4,11 +4,9 @@ provider "google" {
 }
 
 terraform {
-  backend "s3" {
-    bucket         = "docker-badger-gifs"   # Your existing S3 bucket name
-    key            = "terraform/terraform.tfstate"  # State file location inside the bucket
-    region         = "us-east-1"  # Update if your bucket is in a different region
-    encrypt        = true
+  backend "gcs" {
+    bucket  = "docker-badger-gifs"
+    prefix  = "terraform/state"
   }
 }
 
@@ -39,18 +37,3 @@ resource "google_container_node_pool" "primary_nodes" {
   }
 }
 
-resource "google_sql_database_instance" "mysql" {
-  name             = "flask-db-instance"
-  region           = var.region
-  database_version = "MYSQL_8_0"
-
-  settings {
-    tier = "db-f1-micro"
-  }
-}
-
-resource "google_sql_user" "users" {
-  name     = "flask-user"
-  instance = google_sql_database_instance.mysql.name
-  password = var.mysql_password
-}
