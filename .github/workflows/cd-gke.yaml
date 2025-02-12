@@ -1,54 +1,75 @@
-name: Deploy to GKE
+name: CI/CD with Helm CD
 
 on:
-  workflow_run:
-    workflows: ["Docker Image CI"]
-    types:
-      - completed
+  push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
 
 env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  GKE_CLUSTER: flask-gke-cluster
-  GKE_REGION: us-central1
-  GOOGLE_APPLICATION_CREDENTIALS: /home/runner/key.json
+  IMAGE_NAME: yonihavasov/flask-app
+  IMAGE_TAG: 0.0.${{ github.run_number }}
 
 jobs:
-  deploy:
-    name: Deploy Flask App
+  build-Test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Set up GCP Key File
-        run: |
-          echo "${{ secrets.GOOGLE_CREDENTIALS }}" > /home/runner/key.json
-          chmod 600 /home/runner/key.json
-
-      - name: Validate Key File
-        run: |
-          ls -l /home/runner/key.json
-          cat /home/runner/key.json | head -n 5
-
-      - name: Set up Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
         with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
-          export_default_credentials: true
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Authenticate with Google Cloud
-        run: gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
-
-      - name: Configure Kubernetes Access
+      - name: Build and Push Docker Images
         run: |
-          gcloud container clusters get-credentials $GKE_CLUSTER --region $GKE_REGION --project $PROJECT_ID
+          docker build -t ${IMAGE_NAME}:${IMAGE_TAG} -t ${IMAGE_NAME}:latest flask-app
+          docker push ${IMAGE_NAME}:${IMAGE_TAG}
+          docker push ${IMAGE_NAME}:latest
+
+      - name: Test Locally with Docker Compose
+        run: |
+          docker compose up -d
+          sleep 5
+          curl -f http://localhost:5001
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-Test
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Google Cloud Service Account Key
+        run: |
+          echo '${{ secrets.GCP_SA_KEY }}' | base64 --decode > /tmp/key.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=/tmp/key.json" >> $GITHUB_ENV
+
+      - name: Install GKE Plugin
+        run: gcloud components install gke-gcloud-auth-plugin
+
+      - name: Authenticate with GKE
+        run: |
+          gcloud auth activate-service-account --key-file=/tmp/key.json
+          gcloud container clusters get-credentials \
+            ${{ secrets.GCP_CLUSTER_NAME }} \
+            --project ${{ secrets.GCP_PROJECT_ID }} \
 
       - name: Install Helm
-        uses: azure/setup-helm@v3
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
-      - name: Deploy with Helm
-        run: helm upgrade --install flask-app charts/helm
+      - name: Deploy Flask App Using Helm
+        run: |
+          helm upgrade --install flask-release charts/helm \
+            --namespace default \
+            --set flaskApp.tag=${IMAGE_TAG}
+
+      - name: Debug Kubernetes Pods
+        run: |
+          kubectl get pods -A
+          kubectl describe pods -n default
