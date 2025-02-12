@@ -12,6 +12,7 @@ env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   GKE_CLUSTER: flask-gke-cluster
   GKE_REGION: us-central1
+  GOOGLE_APPLICATION_CREDENTIALS: /home/runner/key.json
 
 jobs:
   deploy:
@@ -19,11 +20,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # Set up Google Cloud SDK
+      - name: Set up GCP Key File
+        run: |
+          echo "${{ secrets.GOOGLE_CREDENTIALS }}" > /home/runner/key.json
+          chmod 600 /home/runner/key.json
+
+      - name: Validate Key File
+        run: |
+          ls -l /home/runner/key.json
+          cat /home/runner/key.json | head -n 5
+
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
@@ -31,42 +40,15 @@ jobs:
           service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
           export_default_credentials: true
 
-      # Save Google Credentials to a file
-      - name: Save Google Application Credentials
-        run: echo "${{ secrets.Google_CREDENTIALS }}" > $HOME/key.json
-
-      # Set GOOGLE_APPLICATION_CREDENTIALS environment variable
-      - name: Set GOOGLE_APPLICATION_CREDENTIALS
-        run: echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/key.json" >> $GITHUB_ENV
-
-      # Authenticate with Google Cloud
       - name: Authenticate with Google Cloud
-        run: gcloud auth activate-service-account --key-file=$HOME/key.json
+        run: gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
 
-      # Configure Kubernetes Access
       - name: Configure Kubernetes Access
         run: |
           gcloud container clusters get-credentials $GKE_CLUSTER --region $GKE_REGION --project $PROJECT_ID
 
-      # Set up Terraform
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v2
-
-      # Initialize Terraform
-      - name: Initialize Terraform
-        run: terraform init
-        working-directory: terraform-gke-k8s/
-
-      # Apply Terraform configuration
-      - name: Apply Terraform
-        run: terraform apply -auto-approve
-        working-directory: terraform-gke-k8s/
-
-      # Install Helm
       - name: Install Helm
-        run: |
-          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+        uses: azure/setup-helm@v3
 
-      # Deploy with Helm
       - name: Deploy with Helm
-        run: helm upgrade --install flask-app helm/
+        run: helm upgrade --install flask-app charts/helm
