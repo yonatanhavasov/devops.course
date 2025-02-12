@@ -74,6 +74,40 @@ jobs:
         run: |
           gcloud auth activate-service-account --key-file=/tmp/key.json
 
+      - name: verify gcloud login # debug.
+        run: |
+          set -x
+          gcloud auth list
+            
+      - name: Terraform Init
+        run: |
+          cd terraform-gke-k8s
+          terraform init
+  
+      - name: Terraform Apply # update cluster infrastructure.
+        run: |
+          cd terraform-gke-k8s
+          terraform apply -auto-approve
+  
+      - name: Install Helm
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+          helm version
+  
+      - name: Add and Update Helm Repository
+        run: |
+          helm repo add flaskrepo https://yonatanhavasov.github.io/helm-flaskgif
+          helm repo update
+          helm search repo flaskrepo --versions
+  
+      - name: install GKE google plugin # a must install google plugin to connect to gke cluster
+        run: |
+          gcloud components install gke-gcloud-auth-plugin
+  
+      - name: List GKE Clusters # debug.
+        run: |
+          gcloud container clusters list --project ${{ secrets.GCP_PROJECT_ID }}    
+
       - name: Authenticate with GKE
         run: |
           gcloud auth activate-service-account --key-file=/tmp/key.json
