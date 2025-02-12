@@ -80,6 +80,7 @@ jobs:
           gcloud container clusters get-credentials \
             ${{ secrets.GCP_CLUSTER_NAME }} \
             --project ${{ secrets.GCP_PROJECT_ID }} \
+            --region  ${{secrets.GCP_REGION}}
 
       - name: Install Helm
         run: |
