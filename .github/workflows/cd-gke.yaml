@@ -68,8 +68,8 @@ jobs:
           echo "GOOGLE_APPLICATION_CREDENTIALS=/tmp/key.json" >> $GITHUB_ENV
 
       - name: Install GKE Plugin
-        run: gcloud components install gke-gcloud-auth-plugin
-
+        run: sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
+        
       - name: Authenticate with GKE
         run: |
           gcloud auth activate-service-account --key-file=/tmp/key.json
