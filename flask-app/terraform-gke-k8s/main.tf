@@ -11,7 +11,7 @@ terraform {
 }
 
 resource "google_container_cluster" "gke_cluster" {
-  name     = "flask-gke-cluster"
+  name     = "autopilot-cluster-1"
   location = var.region
 
   remove_default_node_pool = true

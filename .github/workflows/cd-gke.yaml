@@ -61,6 +61,11 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+        
+      - name: setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with: 
+          terraform_wrapper: false  
 
       - name: Setup Google Cloud Service Account Key
         run: |
@@ -81,12 +86,12 @@ jobs:
             
       - name: Terraform Init
         run: |
-          cd terraform-gke-k8s
+          cd flask-app/terraform-gke-k8s
           terraform init
   
       - name: Terraform Apply # update cluster infrastructure.
         run: |
-          cd terraform-gke-k8s
+          cd flask-app/terraform-gke-k8s
           terraform apply -auto-approve
   
       - name: Install Helm
