@@ -33,6 +33,7 @@ jobs:
 
       - name: Test Locally with Docker Compose
         run: |
+          cd flask-app
           docker compose up -d
           sleep 5
           curl -f http://localhost:5001
