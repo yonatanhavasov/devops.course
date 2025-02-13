@@ -49,6 +49,7 @@ jobs:
                 HELM_REPO_PAT: ${{ secrets.HELM_REPO_PAT }} 
               run: |
                 set -x
+                cd flask-app
                 git clone https://${HELM_REPO_PAT}@github.com/yonatanhavasov/helm-flaskgif.git helmrepo
                 cd helmrepo
                 pwd
@@ -63,7 +64,7 @@ jobs:
                 ls -lrta
 
                 git add .
-                git commit -m "Updated helm chart version from APP REPO TRIGGER - Version 0.0.${{ github.run_number }}"
+                git commit -m "Updated helm chart version from APP REPO TRIGGER - Version 1.0.${{ github.run_number }}"
                 git push origin main
 
                 echo "pushed updated helm chart to helm-repo"
