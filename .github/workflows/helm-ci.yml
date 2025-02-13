@@ -52,7 +52,7 @@ jobs:
                 git clone https://${HELM_REPO_PAT}@github.com/yonatanhavasov/helm-flaskgif.git helmrepo
                 cd helmrepo
                 pwd
-
+                sleep 3
                 git config --global user.name "github-actions-app"
                 git config --global user.email "github-actions@gmail.com"
                 ls -lrta
