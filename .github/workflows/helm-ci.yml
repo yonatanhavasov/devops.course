@@ -35,10 +35,12 @@ jobs:
               run: |
                 cd flask-app/charts
                 helm package helm --destination ..
+                cd ..
                 ls -lrta
 
             - name: Update Helm Repo Index # searches for tar.gz file in same dir.
               run: |
+                cd flask-app
                 helm repo index --url https://yonatanhavasov.github.io/helm-flaskgif .
                 ls -lrta
 
