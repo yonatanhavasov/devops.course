@@ -1,0 +1,20 @@
+flaskApp:
+  image: yonihavasov/flask-app:latest
+  replicas: 2
+  containerPort: 5001
+
+mysql:
+  image: mysql:8.0
+  containerPort: 3306
+  storage: 1Gi
+  rootPassword: rootpassword
+  database: gif_db
+  user: gif_user
+  password: gif_password
+  host: db
+
+appConfig:
+  dbHost: db
+  dbUser: gif_user
+  dbName: gif_db
+  port: 5001
