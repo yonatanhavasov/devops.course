@@ -58,7 +58,7 @@ jobs:
                 ls -lrta
 
                 rm -f *.tgz && rm -f index.yaml
-                cp ../*.tgz .
+                cp ../../*.tgz .
                 cp ../index.yaml .
                 ls -lrta
 
