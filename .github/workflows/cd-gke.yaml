@@ -53,7 +53,7 @@ jobs:
         working-directory: flask-app
         run: | 
             docker-compose --env-file .env -f docker-compose.yml up -d
-            sleep 30 # Allow time for the application to start
+            sleep 10 # Allow time for the application to start
       
   deploy:
     runs-on: ubuntu-latest
