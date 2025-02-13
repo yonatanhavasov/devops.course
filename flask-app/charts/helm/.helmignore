@@ -9,7 +9,7 @@ terraform/
 # Exclude Git files
 .git/
 .gitignore
-saki
+
 # Exclude Helm build artifacts
 *.tgz
 charts/
