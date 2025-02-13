@@ -3,12 +3,12 @@ name: helm ci
 on:
     push:
       paths:
-        - 'charts/**'
+        - 'flask-app/charts/**'
       branches:
         - main
     pull_request:
       paths:
-        - 'charts/**'
+        - 'flask-app/charts/**'
       branches:
         - main
 
@@ -27,13 +27,13 @@ jobs:
 
             - name: Update Helm Chart Version
               run: |
-                cd charts/helm
+                cd flask-app/charts/helm
                 sed -i "s/version: .*/version: 1.0.${{ github.run_number }}/g" ./Chart.yaml
                 echo "# this file was modified by a ci to update helm version tagging" >> ./Chart.yaml
 
             - name: Package Helm Chart
               run: |
-                cd charts
+                cd flask-app/charts
                 helm package helm --destination ..
                 cd ..
                 ls -lrta
