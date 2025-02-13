@@ -34,8 +34,7 @@ jobs:
             - name: Package Helm Chart
               run: |
                 cd flask-app/charts
-                helm package helm --destination ..
-                cd ..
+                helm package flask-app --destination ..
                 cd ..
                 ls -lrta
 
