@@ -34,7 +34,7 @@ jobs:
             - name: Package Helm Chart
               run: |
                 cd flask-app/charts
-                helm package helm-flask --destination ..
+                helm package helm --destination ..
                 ls -lrta
 
             - name: Update Helm Repo Index # searches for tar.gz file in same dir.
