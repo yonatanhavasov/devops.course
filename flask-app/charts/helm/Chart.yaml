@@ -1,5 +1,6 @@
 apiVersion: v2
 name: flask-app
 description: A Helm chart for deploying Flask App with MySQL
-version: 1.0
+type: application
+version: "1.0.17"
 appVersion: "1.0"
