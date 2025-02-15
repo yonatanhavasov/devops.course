@@ -22,8 +22,8 @@ spec:
         env:
         - name: DB_HOST
           valueFrom:
-            configMapKeyRef:
-              name: flask-app-config
+            secretKeyRef:
+              name: flask-app-secrets
               key: DB_HOST
         - name: DB_USER
           valueFrom:
@@ -42,8 +42,6 @@ spec:
               key: DB_NAME
         - name: PORT
           valueFrom:
-            configMapKeyRef:
-              name: flask-app-config
+            secretKeyRef:
+              name: flask-app-secrets
               key: PORT
-
-        

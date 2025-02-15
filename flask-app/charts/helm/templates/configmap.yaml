@@ -3,9 +3,9 @@ kind: ConfigMap
 metadata:
   name: flask-app-config
 data:
-  DB_HOST: "db"
-  DB_NAME: "gif_db"
-  PORT: "5001"
+  DB_HOST: "{{ .Values.appConfig.dbHost }}"
+  DB_NAME: "{{ .Values.appConfig.dbName }}"
+  PORT: "{{ .Values.appConfig.port }}"
 ---
 apiVersion: v1
 kind: ConfigMap
