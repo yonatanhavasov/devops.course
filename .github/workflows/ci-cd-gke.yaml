@@ -118,6 +118,7 @@ jobs:
                 git add .
                 git commit -m "Updated helm chart version from APP REPO TRIGGER - Version 1.0.${{ github.run_number }}"
                 git push origin main
+                sleep 5
 
                 echo "pushed updated helm chart to helm-repo"
 
