@@ -200,7 +200,7 @@ jobs:
           
       - name: Restart Kubernetes Deployment
         run: |
-          kubectl rollout restart deployment flask-app-deploynment  
+          kubectl rollout restart deployment flask-app-deployment  
 
       - name: Debug Kubernetes Pods
         run: |
