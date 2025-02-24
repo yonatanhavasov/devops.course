@@ -8,6 +8,13 @@ CREATE TABLE IF NOT EXISTS images (
 INSERT INTO images (url) VALUES
 ('https://media.tenor.com/zZ1i8J3C2RUAAAAM/hello-robert-e-fuller.gif'),
 ('https://media.tenor.com/1y8rq5FE6OEAAAAM/yawning-robert-e-fuller.gif'),
-('https://media.tenor.com/ohykMcgIpk8AAAAM/badgers-badgertime.gif'),
 ('https://media.tenor.com/KYE8V6nrzzYAAAAM/itchy-robert-e-fuller.gif'),
 ('https://media.tenor.com/YcZbpukPl34AAAAM/honey-badger-dance.gif');
+
+CREATE TABLE IF NOT EXISTS visitor_counter (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    count INT NOT NULL DEFAULT 0
+);
+
+-- Initialize the counter with a starting value of 0, for more rows add (0), (value of another row).
+INSERT INTO visitor_counter (count) VALUES (0); 
