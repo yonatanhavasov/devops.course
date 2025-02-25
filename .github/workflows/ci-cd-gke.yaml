@@ -189,6 +189,10 @@ jobs:
             --project ${{ secrets.GCP_PROJECT_ID }} \
             --region  ${{secrets.GCP_REGION}}
 
+      - name: Apply PersistentVolumeClaim (PVC)
+        run: |
+          kubectl apply -f flask-app/charts/helm/pvc.yaml
+
       - name: Deploy Flask App Using Helm, Updating Release and App-Image (--set flag)
         run: |
           set -ex
@@ -197,6 +201,7 @@ jobs:
             --namespace default \
             --set flaskApp.tag=${IMAGE_TAG}
           helm list
+
           
       - name: Restart Kubernetes Deployment
         run: |
