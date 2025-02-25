@@ -13,46 +13,47 @@ db_config = {
     'database': os.getenv('DB_NAME')
 }
 
-# Path to the file that will store the visitor count
-visitor_count_file = "/app/data/visitor_count.txt"
-
-
 # Function to get image URLs from the database
 def get_image_urls():
     try:
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
-
-        # Query to get all image URLs from the 'images' table
         cursor.execute('SELECT url FROM images')
         image_urls = [row[0] for row in cursor.fetchall()]
-
         cursor.close()
         conn.close()
-
         return image_urls
     except mysql.connector.Error as err:
         print(f"Error: {err}")
         return []
 
-# Function to get and increment the visitor count
+# Function to get and increment the visitor count in the database
 def get_and_increment_visitor_count():
     try:
-        # Read the current count from the file or start from 0 if the file doesn't exist
-        if os.path.exists(visitor_count_file):
-            with open(visitor_count_file, 'r') as file:
-                count = int(file.read().strip())
+        conn = mysql.connector.connect(**db_config)
+        cursor = conn.cursor()
+        
+        # Create the table if it does not exist
+        cursor.execute('''CREATE TABLE IF NOT EXISTS visitor_count (
+                          id INT PRIMARY KEY AUTO_INCREMENT,
+                          count INT NOT NULL DEFAULT 0
+                        )''')
+        
+        # Insert initial value if the table is empty
+        cursor.execute('SELECT count FROM visitor_count LIMIT 1')
+        row = cursor.fetchone()
+        
+        if row is None:
+            cursor.execute('INSERT INTO visitor_count (count) VALUES (1)')
+            visitor_count = 1
         else:
-            count = 0
-
-        # Increment the count
-        count += 1
-
-        # Save the updated count back to the file
-        with open(visitor_count_file, 'w') as file:
-            file.write(str(count))
-
-        return count
+            visitor_count = row[0] + 1
+            cursor.execute('UPDATE visitor_count SET count = %s', (visitor_count,))
+        
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return visitor_count
     except Exception as e:
         print(f"Error updating visitor count: {e}")
         return None
@@ -61,8 +62,7 @@ def get_and_increment_visitor_count():
 def index():
     image_urls = get_image_urls()
     visitor_count = get_and_increment_visitor_count()
-
-    # Check if there are image URLs in the database
+    
     if image_urls:
         url = random.choice(image_urls)
         return render_template("index.html", url=url, visitor_count=visitor_count)
@@ -70,6 +70,5 @@ def index():
         return "No images found in the database."
 
 if __name__ == "__main__":
-    # Get the port from the environment variable, defaulting to 5000 if not set
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
