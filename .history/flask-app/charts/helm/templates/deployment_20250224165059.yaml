@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app-deployment
+  labels:
+    app: flask-app
+spec:
+  replicas: {{ .Values.flaskApp.replicas }}
+  selector:
+    matchLabels:
+      app: flask-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1    
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+      - name: flask-app
+        image: {{ .Values.flaskApp.image }}
+        ports:
+        - containerPort: {{ .Values.flaskApp.containerPort }}
+        env:
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: flask-app-secrets
+              key: DB_HOST
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: flask-app-secrets
+              key: DB_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: flask-app-secrets
+              key: DB_PASSWORD
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: flask-app-secrets
+              key: DB_NAME
+        - name: PORT
+          valueFrom:
+            secretKeyRef:
+              name: flask-app-secrets
+              key: PORT
