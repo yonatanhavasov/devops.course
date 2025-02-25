@@ -14,7 +14,7 @@ db_config = {
 }
 
 # Path to the file that will store the visitor count
-visitor_count_file = 'visitor_count.txt'
+visitor_count_file = 'visitor_counter.txt'
 
 # Function to get image URLs from the database
 def get_image_urls():

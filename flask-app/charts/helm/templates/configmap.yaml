@@ -22,3 +22,10 @@ data:
     ('https://media.tenor.com/1y8rq5FE6OEAAAAM/yawning-robert-e-fuller.gif'),
     ('https://media.tenor.com/KYE8V6nrzzYAAAAM/itchy-robert-e-fuller.gif'),
     ('https://media.tenor.com/YcZbpukPl34AAAAM/honey-badger-dance.gif');
+
+    CREATE TABLE IF NOT EXISTS visitor_counter (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        count INT NOT NULL DEFAULT 0
+    );
+
+    INSERT INTO visitor_counter (count) VALUES (0); 
