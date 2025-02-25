@@ -50,10 +50,3 @@ spec:
             secretKeyRef:
               name: flask-app-secrets
               key: PORT
-        volumeMounts:
-          - mountPath: "/app/data"
-            name: visitor-count-storage
-      volumes:
-        - name: visitor-count-storage
-          persistentVolumeClaim:
-            claimName: visitor-count-pvc
