@@ -37,23 +37,32 @@ def get_image_urls():
 # Function to get and increment the visitor count
 def get_and_increment_visitor_count():
     try:
-        # Read the current count from the file or start from 0 if the file doesn't exist
-        if os.path.exists(visitor_count_file):
-            with open(visitor_count_file, 'r') as file:
-                count = int(file.read().strip())
+        conn = mysql.connector.connect(**db_config)
+        cursor = conn.cursor()
+        
+        # Ensure the table exists
+        cursor.execute('''CREATE TABLE IF NOT EXISTS visitor_counter (
+                          id INT AUTO_INCREMENT PRIMARY KEY,
+                          count INT NOT NULL DEFAULT 0
+                        )''')
+        
+        # Retrieve the current visitor count
+        cursor.execute('SELECT count FROM visitor_counter LIMIT 1')
+        row = cursor.fetchone()
+        
+        if row is None:
+            visitor_count = 1
+            cursor.execute('INSERT INTO visitor_counter (count) VALUES (%s)', (visitor_count,))
         else:
-            count = 0
+            visitor_count = row[0] + 1
+            cursor.execute('UPDATE visitor_counter SET count = %s', (visitor_count,))
 
-        # Increment the count
-        count += 1
-
-        # Save the updated count back to the file
-        with open(visitor_count_file, 'w') as file:
-            file.write(str(count))
-
-        return count
-    except Exception as e:
-        print(f"Error updating visitor count: {e}")
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return visitor_count
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
         return None
 
 @app.route("/")
