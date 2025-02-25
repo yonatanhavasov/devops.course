@@ -1,3 +1,6 @@
+ CREATE DATABASE IF NOT EXISTS gif_db;
+
+  USE gif_db;                                     
 -- Create the 'images' table
 CREATE TABLE IF NOT EXISTS images (
     id INT AUTO_INCREMENT PRIMARY KEY,
