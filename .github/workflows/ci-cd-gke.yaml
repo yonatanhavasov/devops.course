@@ -197,6 +197,7 @@ jobs:
             --namespace default \
             --set flaskApp.tag=${IMAGE_TAG}
           helm list
+
           
       - name: Restart Kubernetes Deployment
         run: |
