@@ -1,9 +1,0 @@
-flaskApp:
-  image: yonihavasov/flask-app-web:1.0
-  replicas: 2
-  containerPort: 5001
-
-mysql:
-  image: mysql:8.0
-  containerPort: 3306
-  storage: 1Gi
