@@ -130,4 +130,8 @@ terraform destroy -auto-approve Security Considerations
 
 This project automates the deployment of a Flask web application using Kubernetes, Helm, and Terraform.&#x20;
 
+---
+
+![final project diagram drawio](https://github.com/user-attachments/assets/1beed81d-c3e1-4486-9554-6e638852316f)
+
 
