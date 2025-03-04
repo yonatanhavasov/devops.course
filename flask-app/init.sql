@@ -12,7 +12,8 @@ INSERT INTO images (url) VALUES
 ('https://media.tenor.com/zZ1i8J3C2RUAAAAM/hello-robert-e-fuller.gif'),
 ('https://media.tenor.com/1y8rq5FE6OEAAAAM/yawning-robert-e-fuller.gif'),
 ('https://media.tenor.com/KYE8V6nrzzYAAAAM/itchy-robert-e-fuller.gif'),
-('https://media.tenor.com/YcZbpukPl34AAAAM/honey-badger-dance.gif');
+('https://media.tenor.com/YcZbpukPl34AAAAM/honey-badger-dance.gif'),
+('https://media1.tenor.com/m/uy06yNc_aXQAAAAd/honey-badger-woah.gif');
 
 CREATE TABLE IF NOT EXISTS visitor_counter (
     id INT AUTO_INCREMENT PRIMARY KEY,
