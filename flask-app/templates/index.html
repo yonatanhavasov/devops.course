@@ -31,8 +31,6 @@
         backdrop-filter: blur(10px);
         border: 3px solid rgba(0, 255, 255, 0.5);
         box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
-        width:"400px"; 
-        height:"275px";
       }
 
       h4 {
@@ -44,11 +42,13 @@
         text-shadow: 0 0 10px rgba(0, 225, 255, 0.8);
       }
 
+      /* Fixed Image Size */
       img {
-        width: 100%;
-        height:100%;
+        width: 300px;  /* Fixed width */
+        height: 200px; /* Fixed height */
         border-radius: 10px;
         box-shadow: 0 0 15px rgba(0, 225, 255, 0.5);
+        object-fit: cover; /* Ensures uniform size without distortion */
       }
 
       p {
@@ -95,7 +95,7 @@
   <body>
     <div class="container">
       <h4>Badger Gif of the Day</h4>
-      <img src="{{ url }}" alt="Badger Gif"  />
+      <img src="{{ url }}" alt="Badger Gif" />
       <p>
         <small>
           Courtesy: <a href="https://api.tenor.com/v1/search?q=badger&key=YOUR_API_KEY&limit=10">Buzzfeed</a>
