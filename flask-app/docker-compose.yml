@@ -19,6 +19,7 @@ services:
     build:
       context: .
     container_name: flask_app_container
+    image: yonihavasov/flask_app_web:latest
     ports:
       - "${PORT}:${PORT}"
     environment:
