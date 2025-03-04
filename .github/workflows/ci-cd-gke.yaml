@@ -193,6 +193,7 @@ jobs:
         run: |
           set -ex
           echo "IMAGE_TAG=${IMAGE_TAG}"
+          sleep 5
           helm upgrade --install release flaskrepo/flask-app \
             --namespace default \
             --set flaskApp.tag=${IMAGE_TAG}
