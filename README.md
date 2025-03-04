@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project presents a **Flask-based, Dockerized web application** integrated with **GitHub Actions CI/CD** for automation. The application dynamically serves a random dog GIF from a **MySQL database** and keeps track of visitor counts. The infrastructure is managed using **Terraform** to provision a **Google Kubernetes Engine (GKE) cluster**, and **Helm** for Kubernetes deployments.
+This project presents a **Flask-based, Dockerized web application** integrated with **GitHub Actions CI/CD** for automation. The application dynamically serves a random badger GIF from a **MySQL database** and keeps track of visitor counts. The infrastructure is managed using **Terraform** to provision a **Google Kubernetes Engine (GKE) cluster**, and **Helm** for Kubernetes deployments.
 
 ### Features
 
