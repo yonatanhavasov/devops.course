@@ -57,7 +57,7 @@ jobs:
 
       - name: Test the application with curl
         run: |
-          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5001)
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5000)
           if [ "$RESPONSE" -ne 200 ]; then
             echo "Test failed with HTTP status $RESPONSE"
             exit 1

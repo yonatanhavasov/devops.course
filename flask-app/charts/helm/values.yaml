@@ -1,7 +1,7 @@
 flaskApp:
   image: yonihavasov/flask-app:latest
   replicas: 2
-  containerPort: 5001
+  containerPort: 5000
 
 mysql:
   image: mysql:8.0
@@ -17,4 +17,4 @@ appConfig:
   dbHost: db
   dbUser: gif_user
   dbName: gif_db
-  port: 5001
+  port: 5000
