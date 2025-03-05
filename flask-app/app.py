@@ -1,4 +1,4 @@
-from flask impo!rt Flask, render_template
+from flask import Flask, render_template
 import os
 import mysql.connector
 import random
